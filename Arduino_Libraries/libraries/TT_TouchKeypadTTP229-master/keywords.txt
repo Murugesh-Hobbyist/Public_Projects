@@ -1,4 +1,0 @@
-TT_TouchKeypadTTP229	KEYWORD1
-printData		KEYWORD2
-setPassword	KEYWORD2
-checkPassword	KEYWORD2
