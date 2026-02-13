@@ -1,0 +1,636 @@
+//
+// OneBitDisplay (OLED/LCD/E-Paper library)
+// Copyright (c) 2020 BitBank Software, Inc.
+// Written by Larry Bank (bitbank@pobox.com)
+// Project started 3/23/2020
+//
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+//    http://www.apache.org/licenses/LICENSE-2.0
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
+//
+// This define (WIMPY_MCU) precludes the use of hardware interfaces
+// such as I2C & SPI
+//
+#if defined (__AVR_ATtiny85__) || defined (ARDUINO_ARCH_MCS51)
+#define WIMPY_MCU
+#endif
+#include "Group5.h"
+#ifdef __LINUX__
+#include <stdint.h>
+#include <stdlib.h>
+#include <unistd.h>
+#include <stdio.h>
+#include <string.h>
+#include <fcntl.h>
+#ifndef MEMORY_ONLY
+#include <sys/ioctl.h>
+#include <linux/i2c-dev.h>
+#include <math.h>
+#endif // MEMORY_ONLY
+// convert wire library constants into ArmbianIO values
+#ifdef GPIO_OUT
+#define OUTPUT GPIO_OUT
+#define INPUT GPIO_IN
+#define INPUT_PULLUP GPIO_IN_PULLUP
+#else
+#define OUTPUT 0
+#define INPUT  1
+#define INPUT_PULLUP 2
+#endif
+#define HIGH 1
+#define LOW 0
+void delay(int);
+#else // Arduino
+
+#include <Arduino.h>
+#ifdef __AVR__
+#include <avr/pgmspace.h>
+#endif
+
+#ifndef WIMPY_MCU
+#include <SPI.h>
+#endif
+
+#endif // __LINUX__
+#include "OneBitDisplay.h"
+#ifdef __LINUX__
+#include "linux_io.inl"
+#endif // __LINUX__
+#ifdef ARDUINO
+#include "obd_io.inl" // I/O (non-portable) code is in here
+#endif
+#include "obd.inl" // All of the display interface code is in here
+#include "obd_gfx.inl" // drawing code
+#ifdef __cplusplus
+//
+// C++ Class implementation
+//
+BBI2C * ONE_BIT_DISPLAY::getBB()
+{
+    return &_obd.bbi2c;
+} /* getBB() */
+
+void ONE_BIT_DISPLAY::setBB(BBI2C *pBB)
+{
+   memcpy(&_obd.bbi2c, pBB, sizeof(BBI2C));
+} /* setBB() */
+
+void ONE_BIT_DISPLAY::createVirtualDisplay(int width, int height, uint8_t *buffer)
+{
+   obdCreateVirtualDisplay(&_obd, width, height, buffer);
+}
+
+void ONE_BIT_DISPLAY::SPIbegin(int iType, int32_t iSpeed)
+{
+    obdSPIInit(&_obd, iType, _obd.iDCPin, _obd.iCSPin, _obd.iRSTPin, _obd.iMOSIPin, _obd.iCLKPin, _obd.iLEDPin, _obd.flip, _obd.invert, _obd.bBitBang, iSpeed);
+} /* SPIbegin() */
+
+void ONE_BIT_DISPLAY::setSPIPins(int iCS, int iMOSI, int iSCLK, int iDC, int iReset, int iLED)
+{
+    _obd.iCSPin = iCS;
+    _obd.iMOSIPin = iMOSI;
+    _obd.iCLKPin = iSCLK;
+    _obd.iDCPin = iDC;
+    _obd.iRSTPin = iReset;
+    _obd.iLEDPin = iLED;
+} /* setSPIPins() */
+
+void ONE_BIT_DISPLAY::setI2CPins(int iSDA, int iSCL, int iReset)
+{
+    _obd.iSDAPin = iSDA;
+    _obd.iSCLPin = iSCL;
+    _obd.iRSTPin = iReset;
+#ifdef __LINUX__
+    _obd.bbi2c.file_i2c = -1;
+#endif
+}
+void ONE_BIT_DISPLAY::setBitBang(bool bBitBang)
+{
+    _obd.bBitBang = bBitBang;
+}
+void ONE_BIT_DISPLAY::setPower(bool bOn)
+{
+    obdPower(&_obd, bOn);
+} /* setPower() */
+
+int ONE_BIT_DISPLAY::getFlags(void)
+{
+    return _obd.iFlags;
+}
+
+void ONE_BIT_DISPLAY::setFlags(int iFlags)
+{
+    _obd.iFlags = iFlags;
+    _obd.invert = iFlags & OBD_INVERTED;
+    _obd.flip = iFlags & OBD_FLIP180;
+}
+
+void ONE_BIT_DISPLAY::setContrast(uint8_t ucContrast)
+{
+  obdSetContrast(&_obd, ucContrast);
+}
+
+int ONE_BIT_DISPLAY::I2Cbegin(int iType, int iAddr, int32_t iSpeed)
+{
+  return obdI2CInit(&_obd, iType, iAddr, _obd.flip, _obd.invert, !_obd.bBitBang, _obd.iSDAPin, _obd.iSCLPin, _obd.iRSTPin, iSpeed);
+} /* I2Cbegin() */
+
+void ONE_BIT_DISPLAY::setBuffer(uint8_t *pBuffer)
+{
+    _obd.ucScreen = pBuffer;
+}
+
+int ONE_BIT_DISPLAY::allocBuffer(void)
+{
+    int iSize = _obd.width * ((_obd.height+7)>>3);
+    _obd.ucScreen = (uint8_t *)malloc(iSize);
+    if (_obd.ucScreen != NULL) {
+        _obd.render = false; // draw into RAM only
+        memset(_obd.ucScreen, 0xff, iSize);
+        return OBD_SUCCESS;
+    }
+    return OBD_ERROR_NO_MEMORY; // failed
+} /* allocBuffer() */
+
+uint32_t ONE_BIT_DISPLAY::capabilities(void)
+{
+  return _obd.iFlags;
+}
+
+void * ONE_BIT_DISPLAY::getBuffer(void)
+{
+    return (void *)_obd.ucScreen;
+} /* getBuffer() */
+
+void ONE_BIT_DISPLAY::freeBuffer(void)
+{
+    if (_obd.ucScreen) {
+        free(_obd.ucScreen);
+        _obd.ucScreen = NULL;
+    }
+} /* freeBuffer() */
+
+void ONE_BIT_DISPLAY::setScroll(bool bScroll)
+{
+    _obd.bScroll = bScroll;
+}
+
+void ONE_BIT_DISPLAY::setRotation(int iRotation)
+{
+    obdSetRotation(&_obd, iRotation);
+} /* setRotation() */
+
+void ONE_BIT_DISPLAY::fillScreen(int iColor)
+{
+  obdFill(&_obd, iColor, (_obd.ucScreen == NULL));
+} /* fillScreen() */
+
+void ONE_BIT_DISPLAY::drawRect(int16_t x, int16_t y, int16_t w, int16_t h, uint16_t color)
+{
+    obdRectangle(&_obd, x, y, x+w-1, y+h-1, color, 0);
+} /* drawRect() */
+
+void ONE_BIT_DISPLAY::fillRect(int16_t x, int16_t y, int16_t w, int16_t h, uint16_t color)
+{
+    obdRectangle(&_obd, x, y, x+w-1, y+h-1, color, 1);
+} /* fillRect() */
+
+void ONE_BIT_DISPLAY::setTextWrap(bool bWrap)
+{
+  _obd.wrap = (int)bWrap;
+}
+
+void ONE_BIT_DISPLAY::setTextColor(int iFG, int iBG)
+{
+    _obd.iFG = iFG;
+    _obd.iBG = (iBG == -1) ? iFG : iBG;
+} /* setTextColor() */
+
+void ONE_BIT_DISPLAY::setCursor(int x, int y)
+{
+    if (x >= 0)
+       _obd.iCursorX = x;
+    if (y >= 0)
+    _obd.iCursorY = y;
+} /* setCursor() */
+
+int ONE_BIT_DISPLAY::loadG5Image(const uint8_t *pG5, int x, int y, int iFG, int iBG, float fScale)
+{
+    return obdLoadG5(&_obd, pG5, x, y, iFG, iBG, fScale);
+}
+int ONE_BIT_DISPLAY::loadBMP(const uint8_t *pBMP, int x, int y, int iFG, int iBG)
+{
+    return obdLoadBMP(&_obd, pBMP, x, y, iFG, iBG);
+} /* loadBMP() */
+
+void ONE_BIT_DISPLAY::setFont(int iFont)
+{
+    _obd.iFont = iFont;
+    _obd.pFont = NULL;
+} /* setFont() */
+
+void ONE_BIT_DISPLAY::setTextSize(uint8_t s)
+{
+    _obd.u32FontScaleX = _obd.u32FontScaleY = 256 * s;
+    _obd.iFont = -1;
+    _obd.pFont = NULL;
+}
+void ONE_BIT_DISPLAY::setTextSize(uint8_t sx, uint8_t sy)
+{
+    _obd.u32FontScaleX = 256 * sx;
+    _obd.u32FontScaleY = 256 * sy;
+    _obd.iFont = -1;
+    _obd.pFont = NULL;
+}
+int ONE_BIT_DISPLAY::scrollBuffer(int iStartCol, int iEndCol, int iStartRow, int iEndRow, int bUp)
+{
+    return obdScrollBuffer(&_obd, iStartCol, iEndCol, iStartRow, iEndRow, bUp);
+} /* scrollBuffer() */
+
+void ONE_BIT_DISPLAY::setFont(const void *pFont)
+{
+    _obd.pFont = (void *)pFont;
+} /* setFont() */
+
+void ONE_BIT_DISPLAY::drawLine(int x1, int y1, int x2, int y2, int iColor)
+{
+    obdDrawLine(&_obd, x1, y1, x2, y2, iColor, 1);
+} /* drawLine() */
+
+void obdScroll1Line(OBDISP *pOBD, int iAmount)
+{
+int y, iLines;
+
+    if (pOBD == NULL || pOBD->ucScreen == NULL)
+        return;
+    iLines = (pOBD->height+7)>>3;
+    for (y=0; y<iLines-iAmount; y+=iAmount) {
+        memcpy(&pOBD->ucScreen[y*pOBD->width], &pOBD->ucScreen[(y+iAmount)*pOBD->width], pOBD->width*iAmount);
+    }
+    memset(&pOBD->ucScreen[(iLines-iAmount) * pOBD->width], (char)pOBD->iBG, pOBD->width*iAmount);
+} /* obdScroll1Line() */
+#ifdef __LINUX__
+#ifdef FUTURE
+void ONE_BIT_DISPLAY::print(const string &str)
+{
+   print(str.c_str());
+} /* print() */
+
+void ONE_BIT_DISPLAY::println(const string &str)
+{
+char ucTemp[4];
+
+   print(str);
+   ucTemp[0] = '\n';
+   ucTemp[1] = '\r';
+   ucTemp[2] = 0;
+   print((const char *)ucTemp);
+} /* print() */
+#endif // FUTURE
+void ONE_BIT_DISPLAY::print(const char *pString)
+{
+uint8_t *s = (uint8_t *)pString;
+
+   while (*s != 0) {
+      write(*s++);
+   }
+} /* print() */
+
+void ONE_BIT_DISPLAY::println(const char *pString)
+{
+char ucTemp[4];
+
+    print(pString);
+    ucTemp[0] = '\n';
+    ucTemp[1] = '\r';
+    ucTemp[2] = 0;
+    print((const char *)ucTemp);
+} /* println() */
+void ONE_BIT_DISPLAY::print(int value, int format)
+{
+char c, ucTemp[32];
+char *d = &ucTemp[31];
+
+   if (value) {
+   d[0] = 0;
+   switch(format) {
+      case DEC:
+         while (value) {
+	     d--;
+             *d = '0' + (value % 10);
+             value /= 10;
+	 }
+         break;
+      case HEX:
+	 while (value) {
+            d--;
+            c = value & 0xf;
+	    if (c < 10)
+		    *d = '0' + c;
+	    else
+		    *d = 'A' + (c-10);
+	    value >>= 4;
+	 }
+         break;
+      case OCT:
+	 while (value) {
+            d--;
+            *d = '0' + (value & 7);
+	    value >>= 3;
+	 }
+         break;
+      case BIN:
+         while (value) {
+            d--;
+            *d = '0' + (value & 1);
+	    value >>= 1;
+	 }
+         break;
+      default:
+         break;
+      }
+   } else { // if zero value
+     d--;
+     *d = '0';
+   }
+      print((const char *)d);
+} /* print() */
+
+void ONE_BIT_DISPLAY::println(int value, int format)
+{
+char ucTemp[4];
+
+	print(value, format);
+	ucTemp[0] = '\n';
+	ucTemp[1] = '\r';
+	ucTemp[2] = 0;
+	print((const char *)ucTemp);
+} /* println() */
+
+#endif // __LINUX__
+//
+// write (Arduino Print friend class)
+//
+#ifndef __AVR__
+size_t ONE_BIT_DISPLAY::write(uint8_t c) {
+char szTemp[2]; // used to draw 1 character at a time to the C methods
+int w, h;
+static int iUnicodeCount = 0;
+static uint8_t u8Unicode0, u8Unicode1;
+
+    if (iUnicodeCount == 0) {
+        if (c >= 0x80) { // start of a multi-byte character
+            iUnicodeCount++;
+            u8Unicode0 = c;
+            return 1;
+        }
+    } else { // middle/end of a multi-byte character
+        uint16_t u16Code;
+        if (u8Unicode0 < 0xe0) { // 2 byte char, 0-0x7ff
+            u16Code = (u8Unicode0 & 0x3f) << 6;
+            u16Code += (c & 0x3f);
+            c = obdUnicodeTo1252(u16Code);
+            iUnicodeCount = 0;
+        } else { // 3 byte character 0x800 and above
+            if (iUnicodeCount == 1) {
+                iUnicodeCount++; // save for next byte to arrive
+                u8Unicode1 = c;
+                return 1;
+            }
+            u16Code = (u8Unicode0 & 0x3f) << 12;
+            u16Code += (u8Unicode1 & 0x3f) << 6;
+            u16Code += (c & 0x3f);
+            c = obdUnicodeTo1252(u16Code);
+            iUnicodeCount = 0;
+        }
+    }
+
+  szTemp[0] = c; szTemp[1] = 0;
+   if (_obd.pFont == NULL) { // use built-in fonts
+       if (_obd.iFont == -1) { // scaled 5x7 font
+           h = (int)(_obd.u32FontScaleY >> 8) * 8;
+           w = (int)(_obd.u32FontScaleX >> 8) * 6;
+       } else if (_obd.iFont == FONT_8x8 || _obd.iFont == FONT_6x8) {
+        h = 8;
+        w = (_obd.iFont == FONT_8x8) ? 8 : 6;
+      } else if (_obd.iFont == FONT_12x16 || _obd.iFont == FONT_16x16) {
+        h = 16;
+        w = (_obd.iFont == FONT_12x16) ? 12 : 16;
+      } else { w = 16; h = 32; }
+
+    if (c == '\n') {              // Newline?
+      _obd.iCursorX = 0;          // Reset x to zero,
+      _obd.iCursorY += h; // advance y one line
+        // should we scroll the screen up 1 line?
+        if (_obd.iCursorY >= _obd.height && _obd.ucScreen && _obd.bScroll) {
+            obdScroll1Line(&_obd, h/8);
+            if (_obd.render) {
+                obdDumpBuffer(&_obd, NULL, false, false, false);
+            }
+            _obd.iCursorY -= h;
+        }
+    } else if (c != '\r') {       // Ignore carriage returns
+      if (_obd.wrap && ((_obd.iCursorX + w) > _obd.width)) { // Off right?
+        _obd.iCursorX = 0;               // Reset x to zero,
+        _obd.iCursorY += h; // advance y one line
+          // should we scroll the screen up 1 line?
+          if (_obd.iCursorY >= _obd.height && _obd.ucScreen && _obd.bScroll) {
+              obdScroll1Line(&_obd, h/8);
+              if (_obd.render) {
+                  obdDumpBuffer(&_obd, NULL, false, false, false);
+              }
+              _obd.iCursorY -= h;
+          }
+      }
+        if (_obd.iFont == -1) { // scaled drawing
+            obdScaledString(&_obd, _obd.iCursorX, _obd.iCursorY, szTemp, FONT_6x8, _obd.iFG, _obd.u32FontScaleX, _obd.u32FontScaleY, 0);
+            _obd.iCursorX += w;
+        } else {
+            obdWriteString(&_obd, 0, -1, -1, szTemp, _obd.iFont, _obd.iFG, _obd.render);
+        }
+    }
+  } else { // Custom font
+    BB_FONT *pBBF;
+    BB_FONT_SMALL *pBBFS;
+    BB_GLYPH *pGlyph=NULL;
+    BB_GLYPH_SMALL *pSmallGlyph=NULL;
+    int first, last;
+    if (pgm_read_word(_obd.pFont) == BB_FONT_MARKER) {
+        pBBF = (BB_FONT *)_obd.pFont; pBBFS = NULL;
+        first = pgm_read_byte(&pBBF->first);
+        last = pgm_read_byte(&pBBF->last);
+        pGlyph = &pBBF->glyphs[c - first];
+    } else {
+        pBBFS = (BB_FONT_SMALL *)_obd.pFont; pBBF = NULL;
+        first = pgm_read_byte(&pBBFS->first);
+        last = pgm_read_byte(&pBBFS->last);
+        pSmallGlyph = &pBBFS->glyphs[c - first];
+    }
+    if (c == '\n') {
+      _obd.iCursorX = 0;
+      _obd.iCursorY += (pBBF) ? pgm_read_word(&pBBF->height) : pgm_read_byte(&pBBFS->height);
+    } else if (c != '\r') {
+      if (c >= first && c <= last) {
+        w = (pBBF) ? pgm_read_word(&pGlyph->width) : pgm_read_byte(&pSmallGlyph->width);
+        h = (pBBF) ? pgm_read_word(&pGlyph->height) : pgm_read_byte(&pSmallGlyph->height);
+        if ((w > 0) && (h > 0)) { // Is there an associated bitmap?
+          int16_t xo;
+          if (pBBF) {
+              xo = (int16_t)pgm_read_word(&pGlyph->xOffset);
+          } else {
+              xo = (int8_t)pgm_read_byte(&pSmallGlyph->xOffset);
+          }
+          w += xo; // xadvance
+          h = (pBBF) ? pgm_read_word(&pBBF->height) : pgm_read_byte(&pBBFS->height);
+          if (_obd.wrap && ((_obd.iCursorX + w) > _obd.width)) {
+            _obd.iCursorX = 0;
+            _obd.iCursorY += h;
+          }
+            obdWriteStringCustom(&_obd, _obd.pFont, -1, -1, szTemp, _obd.iFG);
+        }
+      }
+    }
+  }
+  return 1;
+} /* write() */
+#endif // !__AVR__
+
+void ONE_BIT_DISPLAY::drawPixel(int16_t x, int16_t y, uint16_t color)
+{
+    obdSetPixel(&_obd, x, y, color, _obd.render);
+}
+int16_t ONE_BIT_DISPLAY::getCursorX(void)
+{
+  return _obd.iCursorX;
+}
+int16_t ONE_BIT_DISPLAY::getCursorY(void)
+{
+  return _obd.iCursorY;
+}
+uint8_t ONE_BIT_DISPLAY::getRotation(void)
+{
+  return _obd.iOrientation;
+}
+
+void ONE_BIT_DISPLAY::getStringBox(const char *string, BB_RECT *pRect)
+{
+    obdGetStringBox(&_obd, (char *)string, pRect);
+}
+#ifdef ARDUINO
+void ONE_BIT_DISPLAY::getStringBox(const String &str, BB_RECT *pRect)
+{
+    obdGetStringBox(&_obd, str.c_str(), pRect);
+}
+#endif
+int ONE_BIT_DISPLAY::dataTime(void)
+{
+    return _obd.iDataTime;
+}
+int ONE_BIT_DISPLAY::opTime(void)
+{
+    return _obd.iOpTime;
+}
+int16_t ONE_BIT_DISPLAY::width(void)
+{
+   return _obd.width;
+}
+int16_t ONE_BIT_DISPLAY::height(void)
+{
+   return _obd.height;
+}
+void ONE_BIT_DISPLAY::drawSprite(uint8_t *pSprite, int cx, int cy, int iPitch, int x, int y, uint8_t iPriority)
+{
+    obdDrawSprite(&_obd, pSprite, cx, cy, iPitch, x, y, iPriority);
+}
+int ONE_BIT_DISPLAY::drawGFX(uint8_t *pSrc, int iSrcCol, int iSrcRow, int iDestCol, int iDestRow, int iWidth, int iHeight, int iSrcPitch)
+{
+    return obdDrawGFX(&_obd, pSrc, iSrcCol, iSrcRow, iDestCol, iDestRow, iWidth, iHeight, iSrcPitch);
+} /* drawGFX() */
+
+void ONE_BIT_DISPLAY::drawTile(const uint8_t *pTile, int x, int y, int iRotation, int bInvert, int bRender)
+{
+    obdDrawTile(&_obd, pTile, x, y, iRotation, bInvert, bRender);
+}
+void ONE_BIT_DISPLAY::drawCircle(int32_t x, int32_t y, int32_t r, uint32_t color)
+{
+  obdEllipse(&_obd, x, y, r, r, color, 0);
+}
+void ONE_BIT_DISPLAY::fillCircle(int32_t x, int32_t y, int32_t r, uint32_t color)
+{
+    obdEllipse(&_obd, x, y, r, r, color, 1);
+}
+void ONE_BIT_DISPLAY::drawEllipse(int16_t x, int16_t y, int32_t rx, int32_t ry, uint16_t color)
+{
+    obdEllipse(&_obd, x, y, rx, ry, color, 0);
+}
+void ONE_BIT_DISPLAY::fillEllipse(int16_t x, int16_t y, int32_t rx, int32_t ry, uint16_t color)
+{
+    obdEllipse(&_obd, x, y, rx, ry, color, 1);
+}
+void ONE_BIT_DISPLAY::setPosition(int x, int y, int w, int h)
+{
+    obdSetPosition(&_obd, x, y, 1);
+} /* setPosition() */
+void ONE_BIT_DISPLAY::writeRaw(uint8_t *pData, int iLen)
+{
+   RawWrite(&_obd, pData, iLen);
+}
+
+void ONE_BIT_DISPLAY::writeCommand(uint8_t ucCMD)
+{
+   obdWriteCommand(&_obd, ucCMD);
+}
+void ONE_BIT_DISPLAY::pushPixels(uint8_t *pPixels, int iCount)
+{
+    RawWriteData(&_obd, pPixels, iCount);
+} /* pushPixels() */
+
+void ONE_BIT_DISPLAY::pushImage(int x, int y, int w, int h, uint16_t *pixels)
+{
+    // DEBUG
+    (void)x; (void)y; (void)w; (void)h; (void)pixels;
+}
+
+void ONE_BIT_DISPLAY::displayLines(int iStartLine, int iLineCount)
+{
+    obdWriteLCDLines(&_obd, iStartLine, iLineCount);
+} /* displayLines() */
+
+int ONE_BIT_DISPLAY::display(bool bRefresh, bool bWait, bool bFast)
+{
+    return obdDumpBuffer(&_obd, NULL, bRefresh, bWait, bFast);
+}
+
+void ONE_BIT_DISPLAY::drawString(const char *pText, int x, int y)
+{
+    setCursor(x,y);
+    if (_obd.pFont != NULL)
+        obdWriteStringCustom(&_obd, _obd.pFont, x, y, (char *)pText, _obd.iFG);
+    else
+        obdWriteString(&_obd, 0, x, y, (char *)pText, _obd.iFont, _obd.iFG, 1);
+} /* drawString() */
+#ifdef ARDUINO
+void ONE_BIT_DISPLAY::drawString(String text, int x, int y)
+{
+    drawString(text.c_str(), x, y);
+} /* drawString() */
+#endif
+void ONE_BIT_DISPLAY::backlight(int bOn)
+{
+    obdBacklight(&_obd, bOn);
+}
+OBDISP * ONE_BIT_DISPLAY::getOBD()
+{
+    return &_obd;
+}
+void ONE_BIT_DISPLAY::setRender(bool bRAMOnly)
+{
+    _obd.render = !bRAMOnly;
+}
+#endif // __cplusplus

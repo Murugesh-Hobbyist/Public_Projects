@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:ns1="urn:oasis:names:tc:xliff:document:1.2">
+    <plurals formatted="false" msgid="7688673698789346225" name="wear_m3c_time_picker_hours_content_description">
+      <item quantity="few">%d godziny</item>
+      <item quantity="many">%d godzin</item>
+      <item quantity="other">%d godziny</item>
+      <item quantity="one">%d godzina</item>
+    </plurals>
+    <plurals formatted="false" msgid="8268405448590438607" name="wear_m3c_time_picker_minutes_content_description">
+      <item quantity="few">%d minuty</item>
+      <item quantity="many">%d minut</item>
+      <item quantity="other">%d minuty</item>
+      <item quantity="one">%d minuta</item>
+    </plurals>
+    <plurals formatted="false" msgid="1073969431850983434" name="wear_m3c_time_picker_seconds_content_description">
+      <item quantity="few">%d sekundy</item>
+      <item quantity="many">%d sekund</item>
+      <item quantity="other">%d sekundy</item>
+      <item quantity="one">%d sekunda</item>
+    </plurals>
+    <string msgid="389117264260014992" name="autofill">"Autouzupełnianie"</string>
+    <string msgid="881409763997275156" name="call_notification_answer_action">"Odbierz"</string>
+    <string msgid="8793775615905189152" name="call_notification_answer_video_action">"Wideo"</string>
+    <string msgid="3229508546291798546" name="call_notification_decline_action">"Odrzuć"</string>
+    <string msgid="2659457946726154263" name="call_notification_hang_up_action">"Rozłącz"</string>
+    <string msgid="6107532579223922871" name="call_notification_incoming_text">"Połączenie przychodzące"</string>
+    <string msgid="8623827134497363134" name="call_notification_ongoing_text">"Trwa połączenie"</string>
+    <string msgid="59049573811482460" name="call_notification_screening_text">"Filtruję połączenie przychodzące"</string>
+    <string msgid="406453423630273620" name="close_drawer">"Zamknij menu nawigacyjne"</string>
+    <string msgid="7573152094250666567" name="close_sheet">"Zamknij arkusz"</string>
+    <string msgid="8038256446254964252" name="default_error_message">"Nieprawidłowe dane wejściowe"</string>
+    <string msgid="6312721426453364202" name="default_popup_window_title">"Wyskakujące okienko"</string>
+    <string msgid="1890207353314751437" name="dropdown_menu">"Menu"</string>
+    <string msgid="6827826412747255547" name="in_progress">"W toku"</string>
+    <string msgid="7933458017204019916" name="indeterminate">"Częściowo zaznaczone"</string>
+    <string msgid="542007171693138492" name="navigation_menu">"Menu nawigacyjne"</string>
+    <string msgid="6610465462668679431" name="not_selected">"Nie wybrano"</string>
+    <string msgid="5941395253238309765" name="range_end">"Koniec zakresu"</string>
+    <string msgid="7097486360902471446" name="range_start">"Początek zakresu"</string>
+    <string msgid="6043586758067023" name="selected">"Wybrano"</string>
+    <string msgid="2792228137354697160" name="snackbar_pane_title">"Alert"</string>
+    <string msgid="4139871816613051306" name="state_empty">"Puste"</string>
+    <string msgid="5834637030682409883" name="state_off">"Wyłączono"</string>
+    <string msgid="1490883874751719580" name="state_on">"Włączono"</string>
+    <string msgid="6277540029070332960" name="status_bar_notification_info_overflow">"999+"</string>
+    <string msgid="2561197295334830845" name="switch_role">"Przełącznik"</string>
+    <string msgid="1672349317127674378" name="tab">"Karta"</string>
+    <string msgid="5946805113151406391" name="template_percent">"<ns1:g id="PERCENTAGE">%1$d</ns1:g> procent."</string>
+    <string msgid="3765533235322692011" name="tooltip_description">"etykietka"</string>
+    <string msgid="3124740595719787496" name="tooltip_label">"pokaż etykietkę"</string>
+    <string msgid="7776845597891182382" name="wear_m3c_alert_dialog_content_description_confirm_button">"Potwierdź"</string>
+    <string msgid="3572467833850785688" name="wear_m3c_alert_dialog_content_description_dismiss_button">"Zamknij"</string>
+    <string msgid="8932770593644830235" name="wear_m3c_date_picker_day">"Dzień"</string>
+    <string msgid="1824308273028674826" name="wear_m3c_date_picker_heading">"Przewiń do wybranej daty"</string>
+    <string msgid="5962969526377479136" name="wear_m3c_date_picker_month">"Miesiąc"</string>
+    <string msgid="4697690064312147449" name="wear_m3c_date_picker_year">"Rok"</string>
+    <string msgid="3200727397161392122" name="wear_m3c_open_on_phone">"Sprawdź telefon"</string>
+    <string msgid="5953380527505012363" name="wear_m3c_open_on_phone_icon_content_description">"Ikona sprawdzania telefonu"</string>
+    <string msgid="167976024035966099" name="wear_m3c_picker_click_to_adjust_hint">"Dostosuj wartość"</string>
+    <string msgid="7994498880084699884" name="wear_m3c_picker_click_to_select_hint">"Wybierz wartość"</string>
+    <string msgid="8440144719909288057" name="wear_m3c_picker_confirm_button_content_description">"Potwierdź"</string>
+    <string msgid="3346011303652897029" name="wear_m3c_picker_next_button_content_description">"Dalej"</string>
+    <string msgid="8242572466064289486" name="wear_m3c_slider_decrease_content_description">"Zmniejsz"</string>
+    <string msgid="3329631766954416834" name="wear_m3c_slider_increase_content_description">"Zwiększ"</string>
+    <string msgid="1741225633698384262" name="wear_m3c_time_picker_heading">"Przewiń do wybranej godziny"</string>
+    <string msgid="5670838450714030035" name="wear_m3c_time_picker_hour">"Godzina"</string>
+    <string msgid="2847700380677127030" name="wear_m3c_time_picker_minute">"Minuta"</string>
+    <string msgid="5567285614451063120" name="wear_m3c_time_picker_period">"Kropka"</string>
+    <string msgid="5551916170669814925" name="wear_m3c_time_picker_second">"Sekunda"</string>
+</resources>

@@ -22,6 +22,7 @@
  * Written by Phil "Paint Your Dragon" Burgess for Adafruit Industries,
  * with contributions by PJRC, Michael Miller and other members of the
  * open source community.
+ * Minor change in timing for CH32 @48MHz by Maxint-RD 20260126.
  *
  * @section license License
  *
@@ -273,10 +274,12 @@ static void ch32Show(GPIO_TypeDef* ch_port, uint32_t ch_pin, uint8_t* pixels, ui
       *set = ch_pin;
       __asm volatile ("nop; nop; nop; nop; nop; nop; nop; nop;"
         "nop; nop; nop; nop; nop; nop; nop; nop;"
+        "nop; nop; nop; nop; nop; nop; nop;"
+#if CH32_F_CPU >= 56000000
+        "nop; nop;"
         "nop; nop; nop; nop; nop; nop; nop; nop;"
         "nop; nop; nop; nop; nop; nop; nop; nop;"
-        "nop; nop; nop; nop; nop; nop; nop; nop;"
-        "nop;"
+#endif
 #if CH32_F_CPU >= 72000000
         "nop; nop; nop; nop; nop; nop; nop;"
         "nop; nop; nop; nop; nop; nop;"
@@ -299,9 +302,11 @@ static void ch32Show(GPIO_TypeDef* ch_port, uint32_t ch_pin, uint8_t* pixels, ui
 
       // Low 450ns
       *clr = ch_pin;
-      __asm volatile ("nop; nop; nop; nop; nop; nop; nop; nop;"
+      __asm volatile ("nop; nop;"
+#if CH32_F_CPU >= 56000000
+        "nop; nop; nop; nop; nop; nop; nop;"
         "nop; nop; nop; nop; nop; nop; nop; nop;"
-        "nop;"
+#endif
 #if CH32_F_CPU >= 72000000
         "nop; nop; nop; nop; nop; nop; nop; nop; nop;"
 #endif
@@ -320,8 +325,9 @@ static void ch32Show(GPIO_TypeDef* ch_port, uint32_t ch_pin, uint8_t* pixels, ui
       // High 400ns
       *set = ch_pin;
       __asm volatile ("nop; nop; nop; nop; nop; nop; nop; nop;"
-        "nop; nop; nop; nop; nop; nop; nop; nop;"
-        "nop;"
+#if CH32_F_CPU >= 56000000
+        "nop; nop; nop; nop; nop; nop; nop; nop; nop;"
+#endif
 #if CH32_F_CPU >= 72000000
         "nop; nop; nop; nop; nop; nop; nop;"
 #endif
@@ -340,10 +346,13 @@ static void ch32Show(GPIO_TypeDef* ch_port, uint32_t ch_pin, uint8_t* pixels, ui
       // Low 850ns
       *clr = ch_pin;
       __asm volatile ("nop; nop; nop; nop; nop; nop; nop; nop;"
+        "nop; nop; nop; nop;"
+#if CH32_F_CPU >= 56000000
+        "nop;"
         "nop; nop; nop; nop; nop; nop; nop; nop;"
         "nop; nop; nop; nop; nop; nop; nop; nop;"
         "nop; nop; nop; nop; nop; nop; nop; nop;"
-        "nop; nop; nop; nop; nop;"
+#endif
 #if CH32_F_CPU >= 72000000
         "nop; nop; nop;"
         "nop; nop; nop; nop; nop; nop; nop; nop;"
@@ -400,6 +409,12 @@ extern "C" void espShow(uint16_t pin, uint8_t *pixels, uint32_t numBytes,
 extern "C" void k210Show(uint8_t pin, uint8_t *pixels, uint32_t numBytes,
                          boolean is800KHz);
 #endif // KENDRYTE_K210
+
+
+#if defined(ARDUINO_ARCH_PSOC6)
+extern "C" void psoc6_show(uint8_t pin, uint8_t *pixels, uint32_t numBytes,
+                         boolean is800KHz);
+#endif
 /*!
   @brief   Transmit pixel data in RAM to NeoPixels.
   @note    On most architectures, interrupts are temporarily disabled in
@@ -442,6 +457,10 @@ void Adafruit_NeoPixel::show(void) {
   // ESP32 may not disable interrupts because espShow() uses RMT which tries to acquire locks
 #if !(defined(NRF52) || defined(NRF52_SERIES) || defined(ESP32))
   noInterrupts(); // Need 100% focus on instruction timing
+#endif
+
+#if defined(ARDUINO_ARCH_PSOC6)
+  psoc6_show(pin, pixels, numBytes, is800KHz);
 #endif
 
 #if defined(__AVR__)
@@ -1828,69 +1847,9 @@ void Adafruit_NeoPixel::show(void) {
 
 #elif defined(__arm__)
 
-#if defined(TARGET_GIGA) || defined(TARGET_M4)
-  // Arduino GIGA -----------------------------------------------------------
-  uint8_t *p = pixels, *end = p + numBytes, pix;
-  while (p < end)
-  {
-    pix = *p++;
-    for (int i = 7; i >= 0; i--)
-    {
-      // gpio_write(&gpio->gpio, 1);
-      gpio->write(1);
-
-      // duty cycle determines bit value
-      // if (pix & 0x80)
-      if (bitRead(pix, i) == 0)
-      {
-        // one
-        // wait_ns(400); -> 192 cycles
-#if defined(TARGET_GIGA)
-        for (int j = 0; j < 96; j++)
-#else
-        for (int j = 0; j < 48; j++)
-#endif
-          __NOP();
-
-        // gpio_write(&gpio->gpio, 0);
-        gpio->write(0);
-
-        // wait_ns(850) -> 408 cycles
-#if defined(TARGET_GIGA)
-        for (int j = 0; j < 204; j++)
-#else
-        for (int j = 0; j < 102; j++)
-#endif
-          __NOP();
-      }
-      else
-      {
-        // zero
-        // wait_ns(800) -> 384 cycles
-#if defined(TARGET_GIGA)
-        for (int j = 0; j < 192; j++)
-#else
-        for (int j = 0; j < 96; j++)
-#endif
-          __NOP();
-
-        gpio->write(0);
-        // gpio_write(&gpio->gpio, 0);
-        // wait_ns(450) -> 216 cycles
-#if defined(TARGET_GIGA)
-        for (int j = 0; j < 108; j++)
-#else
-        for (int j = 0; j < 54; j++)
-#endif
-          __NOP();
-      }
-
-      // pix = pix << 1; // shift to next bit
-    }
-  }
     // ARM MCUs -- Teensy 3.0, 3.1, LC, Arduino Due, RP2040 -------------------
 
-#elif defined(ARDUINO_ARCH_RP2040)
+#if defined(ARDUINO_ARCH_RP2040)
   // Use PIO
   rp2040Show(pixels, numBytes);
 
@@ -3143,9 +3102,9 @@ if(is800KHz) {
 #define ARM_DWT_CTRL_CYCCNTENA          (1 << 0)                // Enable cycle count
 #define ARM_DWT_CYCCNT          (*(volatile uint32_t *)0xE0001004) // Cycle count register
 
-#if defined(ARDUINO_PORTENTA_H7_M7) || defined(ARDUINO_GIGA)
+#if defined(ARDUINO_PORTENTA_H7_M7) || (defined(ARDUINO_ARCH_MBED_GIGA) && defined(TARGET_M7))
 #define F_CPU 480000000
-#elif defined(ARDUINO_PORTENTA_H7_M4)
+#elif defined(ARDUINO_PORTENTA_H7_M4) || (defined(ARDUINO_ARCH_MBED_GIGA) && defined(TARGET_M4)) 
 #define F_CPU 240000000
 #else
 #define F_CPU 48000000
@@ -3412,14 +3371,6 @@ void Adafruit_NeoPixel::setPin(int16_t p) {
     gpioPin = gpioPin >> 13;
   }
   #endif
-#endif
-#if defined(TARGET_GIGA) || defined(TARGET_M4)
-  gpio = digitalPinToGpio(pin);
-  if (gpio == NULL)
-  {
-      gpio = new mbed::DigitalInOut(digitalPinToPinName(pin), PIN_OUTPUT, PullNone, 0);
-      digitalPinToGpio(pin) = gpio;
-  }
 #endif
 }
 

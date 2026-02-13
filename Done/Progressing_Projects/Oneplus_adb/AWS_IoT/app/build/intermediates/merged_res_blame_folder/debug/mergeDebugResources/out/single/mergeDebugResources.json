@@ -1,0 +1,110 @@
+[
+    {
+        "merged": "com.twinbot.touchcounter.app-debug-51:/mipmap-xxxhdpi_ic_launcher_round.png.flat",
+        "source": "com.twinbot.touchcounter.app-main-53:/mipmap-xxxhdpi/ic_launcher_round.png"
+    },
+    {
+        "merged": "com.twinbot.touchcounter.app-debug-51:/mipmap-hdpi_ic_launcher.png.flat",
+        "source": "com.twinbot.touchcounter.app-main-53:/mipmap-hdpi/ic_launcher.png"
+    },
+    {
+        "merged": "com.twinbot.touchcounter.app-debug-51:/mipmap-xxhdpi_ic_launcher.png.flat",
+        "source": "com.twinbot.touchcounter.app-main-53:/mipmap-xxhdpi/ic_launcher.png"
+    },
+    {
+        "merged": "C:\\Users\\murug\\.gradle\\daemon\\8.7\\com.twinbot.touchcounter.app-debug-51:\\mipmap-mdpi_ic_launcher_round.png.flat",
+        "source": "C:\\Users\\murug\\.gradle\\daemon\\8.7\\com.twinbot.touchcounter.app-main-53:\\mipmap-mdpi\\ic_launcher_round.png"
+    },
+    {
+        "merged": "C:\\Users\\murug\\.gradle\\daemon\\8.7\\com.twinbot.touchcounter.app-debug-51:\\mipmap-anydpi-v26_ic_launcher_round.xml.flat",
+        "source": "C:\\Users\\murug\\.gradle\\daemon\\8.7\\com.twinbot.touchcounter.app-main-53:\\mipmap-anydpi-v26\\ic_launcher_round.xml"
+    },
+    {
+        "merged": "com.twinbot.touchcounter.app-debug-51:/mipmap-mdpi_ic_launcher_round.png.flat",
+        "source": "com.twinbot.touchcounter.app-main-53:/mipmap-mdpi/ic_launcher_round.png"
+    },
+    {
+        "merged": "C:\\Users\\murug\\.gradle\\daemon\\8.7\\com.twinbot.touchcounter.app-debug-51:\\mipmap-hdpi_ic_launcher_foreground.png.flat",
+        "source": "C:\\Users\\murug\\.gradle\\daemon\\8.7\\com.twinbot.touchcounter.app-main-53:\\mipmap-hdpi\\ic_launcher_foreground.png"
+    },
+    {
+        "merged": "C:\\Users\\murug\\.gradle\\daemon\\8.7\\com.twinbot.touchcounter.app-debug-51:\\mipmap-hdpi_ic_launcher.png.flat",
+        "source": "C:\\Users\\murug\\.gradle\\daemon\\8.7\\com.twinbot.touchcounter.app-main-53:\\mipmap-hdpi\\ic_launcher.png"
+    },
+    {
+        "merged": "C:\\Users\\murug\\.gradle\\daemon\\8.7\\com.twinbot.touchcounter.app-debug-51:\\mipmap-xhdpi_ic_launcher_round.png.flat",
+        "source": "C:\\Users\\murug\\.gradle\\daemon\\8.7\\com.twinbot.touchcounter.app-main-53:\\mipmap-xhdpi\\ic_launcher_round.png"
+    },
+    {
+        "merged": "com.twinbot.touchcounter.app-debug-51:/mipmap-xhdpi_ic_launcher_round.png.flat",
+        "source": "com.twinbot.touchcounter.app-main-53:/mipmap-xhdpi/ic_launcher_round.png"
+    },
+    {
+        "merged": "C:\\Users\\murug\\.gradle\\daemon\\8.7\\com.twinbot.touchcounter.app-debug-51:\\mipmap-xxxhdpi_ic_launcher_foreground.png.flat",
+        "source": "C:\\Users\\murug\\.gradle\\daemon\\8.7\\com.twinbot.touchcounter.app-main-53:\\mipmap-xxxhdpi\\ic_launcher_foreground.png"
+    },
+    {
+        "merged": "com.twinbot.touchcounter.app-debug-51:/mipmap-xhdpi_ic_launcher.png.flat",
+        "source": "com.twinbot.touchcounter.app-main-53:/mipmap-xhdpi/ic_launcher.png"
+    },
+    {
+        "merged": "C:\\Users\\murug\\.gradle\\daemon\\8.7\\com.twinbot.touchcounter.app-debug-51:\\mipmap-hdpi_ic_launcher_round.png.flat",
+        "source": "C:\\Users\\murug\\.gradle\\daemon\\8.7\\com.twinbot.touchcounter.app-main-53:\\mipmap-hdpi\\ic_launcher_round.png"
+    },
+    {
+        "merged": "com.twinbot.touchcounter.app-debug-51:/mipmap-mdpi_ic_launcher.png.flat",
+        "source": "com.twinbot.touchcounter.app-main-53:/mipmap-mdpi/ic_launcher.png"
+    },
+    {
+        "merged": "C:\\Users\\murug\\.gradle\\daemon\\8.7\\com.twinbot.touchcounter.app-debug-51:\\mipmap-xhdpi_ic_launcher_foreground.png.flat",
+        "source": "C:\\Users\\murug\\.gradle\\daemon\\8.7\\com.twinbot.touchcounter.app-main-53:\\mipmap-xhdpi\\ic_launcher_foreground.png"
+    },
+    {
+        "merged": "C:\\Users\\murug\\.gradle\\daemon\\8.7\\com.twinbot.touchcounter.app-debug-51:\\mipmap-xxhdpi_ic_launcher_foreground.png.flat",
+        "source": "C:\\Users\\murug\\.gradle\\daemon\\8.7\\com.twinbot.touchcounter.app-main-53:\\mipmap-xxhdpi\\ic_launcher_foreground.png"
+    },
+    {
+        "merged": "C:\\Users\\murug\\.gradle\\daemon\\8.7\\com.twinbot.touchcounter.app-debug-51:\\mipmap-xxhdpi_ic_launcher_round.png.flat",
+        "source": "C:\\Users\\murug\\.gradle\\daemon\\8.7\\com.twinbot.touchcounter.app-main-53:\\mipmap-xxhdpi\\ic_launcher_round.png"
+    },
+    {
+        "merged": "com.twinbot.touchcounter.app-debug-51:/mipmap-hdpi_ic_launcher_round.png.flat",
+        "source": "com.twinbot.touchcounter.app-main-53:/mipmap-hdpi/ic_launcher_round.png"
+    },
+    {
+        "merged": "C:\\Users\\murug\\.gradle\\daemon\\8.7\\com.twinbot.touchcounter.app-debug-51:\\mipmap-xxhdpi_ic_launcher.png.flat",
+        "source": "C:\\Users\\murug\\.gradle\\daemon\\8.7\\com.twinbot.touchcounter.app-main-53:\\mipmap-xxhdpi\\ic_launcher.png"
+    },
+    {
+        "merged": "C:\\Users\\murug\\.gradle\\daemon\\8.7\\com.twinbot.touchcounter.app-debug-51:\\mipmap-anydpi-v26_ic_launcher.xml.flat",
+        "source": "C:\\Users\\murug\\.gradle\\daemon\\8.7\\com.twinbot.touchcounter.app-main-53:\\mipmap-anydpi-v26\\ic_launcher.xml"
+    },
+    {
+        "merged": "C:\\Users\\murug\\.gradle\\daemon\\8.7\\com.twinbot.touchcounter.app-debug-51:\\mipmap-xxxhdpi_ic_launcher_round.png.flat",
+        "source": "C:\\Users\\murug\\.gradle\\daemon\\8.7\\com.twinbot.touchcounter.app-main-53:\\mipmap-xxxhdpi\\ic_launcher_round.png"
+    },
+    {
+        "merged": "com.twinbot.touchcounter.app-debug-51:/mipmap-xxhdpi_ic_launcher_round.png.flat",
+        "source": "com.twinbot.touchcounter.app-main-53:/mipmap-xxhdpi/ic_launcher_round.png"
+    },
+    {
+        "merged": "C:\\Users\\murug\\.gradle\\daemon\\8.7\\com.twinbot.touchcounter.app-debug-51:\\mipmap-mdpi_ic_launcher_foreground.png.flat",
+        "source": "C:\\Users\\murug\\.gradle\\daemon\\8.7\\com.twinbot.touchcounter.app-main-53:\\mipmap-mdpi\\ic_launcher_foreground.png"
+    },
+    {
+        "merged": "C:\\Users\\murug\\.gradle\\daemon\\8.7\\com.twinbot.touchcounter.app-debug-51:\\mipmap-xhdpi_ic_launcher.png.flat",
+        "source": "C:\\Users\\murug\\.gradle\\daemon\\8.7\\com.twinbot.touchcounter.app-main-53:\\mipmap-xhdpi\\ic_launcher.png"
+    },
+    {
+        "merged": "com.twinbot.touchcounter.app-debug-51:/mipmap-xxxhdpi_ic_launcher.png.flat",
+        "source": "com.twinbot.touchcounter.app-main-53:/mipmap-xxxhdpi/ic_launcher.png"
+    },
+    {
+        "merged": "C:\\Users\\murug\\.gradle\\daemon\\8.7\\com.twinbot.touchcounter.app-debug-51:\\mipmap-mdpi_ic_launcher.png.flat",
+        "source": "C:\\Users\\murug\\.gradle\\daemon\\8.7\\com.twinbot.touchcounter.app-main-53:\\mipmap-mdpi\\ic_launcher.png"
+    },
+    {
+        "merged": "C:\\Users\\murug\\.gradle\\daemon\\8.7\\com.twinbot.touchcounter.app-debug-51:\\mipmap-xxxhdpi_ic_launcher.png.flat",
+        "source": "C:\\Users\\murug\\.gradle\\daemon\\8.7\\com.twinbot.touchcounter.app-main-53:\\mipmap-xxxhdpi\\ic_launcher.png"
+    }
+]

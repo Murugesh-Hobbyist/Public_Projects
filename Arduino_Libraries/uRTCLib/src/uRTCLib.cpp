@@ -30,7 +30,7 @@
  * @see <a href="https://www.foroelectro.net/librerias-arduino-ide-f29/rtclib-arduino-libreria-simple-y-eficaz-para-rtc-y-t95.html">https://www.foroelectro.net/librerias-arduino-ide-f29/rtclib-arduino-libreria-simple-y-eficaz-para-rtc-y-t95.html</a>
  * @see <a href="mailto:naguissa@foroelectro.net">naguissa@foroelectro.net</a>
  * @see <a href="https://github.com/Naguissa/uEEPROMLib">See uEEPROMLib for EEPROM support.</a>
- * @version 6.9.6
+ * @version 6.9.9
  */
 
 #include <Arduino.h>
@@ -96,14 +96,26 @@ bool uRTCLib::refresh() {
 		// case URTCLIB_MODEL_DS3231: // Commented out because it's default mode
 		// case URTCLIB_MODEL_DS3232: // Commented out because it's default mode
 		default:
-			bytesRequested = 19;
-			break;
-	}
+	        #if defined(ARDUINO_attiny) || defined(ARDUINO_AVR_ATTINYX4) || defined(ARDUINO_AVR_ATTINYX5) || defined(ARDUINO_AVR_ATTINYX7) || defined(ARDUINO_AVR_ATTINYX8) || defined(ARDUINO_AVR_ATTINYX61) || defined(ARDUINO_AVR_ATTINY43) || defined(ARDUINO_AVR_ATTINY828) || defined(ARDUINO_AVR_ATTINY1634) || defined(ARDUINO_AVR_ATTINYX313)
+		        bytesRequested = 8;
+	        #else
+		        bytesRequested = 19;
+	        #endif
+	        break;
+    }
+
 	uint8_t bytesReceived = URTCLIB_WIRE.requestFrom(_rtc_address, bytesRequested);
-	if (bytesReceived < bytesRequested) {
-		// Error
-		return false;
-	}
+	#if defined(ARDUINO_attiny) || defined(ARDUINO_AVR_ATTINYX4) || defined(ARDUINO_AVR_ATTINYX5) || defined(ARDUINO_AVR_ATTINYX7) || defined(ARDUINO_AVR_ATTINYX8) || defined(ARDUINO_AVR_ATTINYX61) || defined(ARDUINO_AVR_ATTINY43) || defined(ARDUINO_AVR_ATTINY828) || defined(ARDUINO_AVR_ATTINY1634) || defined(ARDUINO_AVR_ATTINYX313)
+	    if (bytesReceived != 0) {
+		    // Error
+		    return false;
+	    }
+	#else
+	    if (bytesReceived < bytesRequested) {
+		    // Error
+		    return false;
+	    }
+	#endif
 	// 0x00h
 	uint8_t tempByte = URTCLIB_WIRE.read();
 	// On DS1307 EOSC and lost_power functions are combined in CH (Clock Halt).
@@ -197,6 +209,14 @@ bool uRTCLib::refresh() {
 		// case URTCLIB_MODEL_DS3231: // Commented out because it's default mode
 		// case URTCLIB_MODEL_DS3232: // Commented out because it's default mode
 		default:
+            #if defined(ARDUINO_attiny) || defined(ARDUINO_AVR_ATTINYX4) || defined(ARDUINO_AVR_ATTINYX5) || defined(ARDUINO_AVR_ATTINYX7) || defined(ARDUINO_AVR_ATTINYX8) || defined(ARDUINO_AVR_ATTINYX61) || defined(ARDUINO_AVR_ATTINY43) || defined(ARDUINO_AVR_ATTINY828) || defined(ARDUINO_AVR_ATTINY1634) || defined(ARDUINO_AVR_ATTINYX313)
+            	bytesRequested = 11;
+                bytesReceived = URTCLIB_WIRE.requestFrom(_rtc_address, bytesRequested);
+                if (bytesReceived != 0) {
+                    // Error
+                    return false;
+                }
+            #endif
 			uint8_t MSB, LSB; // LSB is also used as tmp  variable
 
 			_a1_mode = URTCLIB_ALARM_TYPE_1_NONE;

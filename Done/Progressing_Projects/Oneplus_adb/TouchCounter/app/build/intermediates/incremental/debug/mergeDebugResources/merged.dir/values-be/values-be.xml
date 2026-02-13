@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:ns1="urn:oasis:names:tc:xliff:document:1.2">
+    <plurals formatted="false" msgid="7688673698789346225" name="wear_m3c_time_picker_hours_content_description">
+      <item quantity="one">%d гадзіна</item>
+      <item quantity="few">%d гадзіны</item>
+      <item quantity="many">%d гадзін</item>
+      <item quantity="other">%d гадзіны</item>
+    </plurals>
+    <plurals formatted="false" msgid="8268405448590438607" name="wear_m3c_time_picker_minutes_content_description">
+      <item quantity="one">%d хвіліна</item>
+      <item quantity="few">%d хвіліны</item>
+      <item quantity="many">%d хвілін</item>
+      <item quantity="other">%d хвіліны</item>
+    </plurals>
+    <plurals formatted="false" msgid="1073969431850983434" name="wear_m3c_time_picker_seconds_content_description">
+      <item quantity="one">%d секунда</item>
+      <item quantity="few">%d секунды</item>
+      <item quantity="many">%d секунд</item>
+      <item quantity="other">%d секунды</item>
+    </plurals>
+    <string msgid="389117264260014992" name="autofill">"Аўтазапаўненне"</string>
+    <string msgid="881409763997275156" name="call_notification_answer_action">"Адказаць"</string>
+    <string msgid="8793775615905189152" name="call_notification_answer_video_action">"Відэа"</string>
+    <string msgid="3229508546291798546" name="call_notification_decline_action">"Адхіліць"</string>
+    <string msgid="2659457946726154263" name="call_notification_hang_up_action">"Завяршыць"</string>
+    <string msgid="6107532579223922871" name="call_notification_incoming_text">"Уваходны выклік"</string>
+    <string msgid="8623827134497363134" name="call_notification_ongoing_text">"Бягучы выклік"</string>
+    <string msgid="59049573811482460" name="call_notification_screening_text">"Фільтраванне ўваходнага выкліку"</string>
+    <string msgid="406453423630273620" name="close_drawer">"Закрыць меню навігацыі"</string>
+    <string msgid="7573152094250666567" name="close_sheet">"Закрыць аркуш"</string>
+    <string msgid="8038256446254964252" name="default_error_message">"Памылка ўводу"</string>
+    <string msgid="6312721426453364202" name="default_popup_window_title">"Усплывальнае акно"</string>
+    <string msgid="1890207353314751437" name="dropdown_menu">"Выпадное меню"</string>
+    <string msgid="6827826412747255547" name="in_progress">"У працэсе"</string>
+    <string msgid="7933458017204019916" name="indeterminate">"Выбрана часткова"</string>
+    <string msgid="542007171693138492" name="navigation_menu">"Меню навігацыі"</string>
+    <string msgid="6610465462668679431" name="not_selected">"Не выбрана"</string>
+    <string msgid="5941395253238309765" name="range_end">"Канец пераліку"</string>
+    <string msgid="7097486360902471446" name="range_start">"Пачатак пераліку"</string>
+    <string msgid="6043586758067023" name="selected">"Выбрана"</string>
+    <string msgid="2792228137354697160" name="snackbar_pane_title">"Абвестка"</string>
+    <string msgid="4139871816613051306" name="state_empty">"Змесціва няма"</string>
+    <string msgid="5834637030682409883" name="state_off">"Выключана"</string>
+    <string msgid="1490883874751719580" name="state_on">"Уключана"</string>
+    <string msgid="6277540029070332960" name="status_bar_notification_info_overflow">"999+"</string>
+    <string msgid="2561197295334830845" name="switch_role">"Пераключальнік"</string>
+    <string msgid="1672349317127674378" name="tab">"Укладка"</string>
+    <string msgid="5946805113151406391" name="template_percent">"Працэнтаў: <ns1:g id="PERCENTAGE">%1$d</ns1:g>."</string>
+    <string msgid="3765533235322692011" name="tooltip_description">"падказка"</string>
+    <string msgid="3124740595719787496" name="tooltip_label">"паказаць усплывальную падказку"</string>
+    <string msgid="7776845597891182382" name="wear_m3c_alert_dialog_content_description_confirm_button">"Пацвердзіць"</string>
+    <string msgid="3572467833850785688" name="wear_m3c_alert_dialog_content_description_dismiss_button">"Закрыць"</string>
+    <string msgid="8932770593644830235" name="wear_m3c_date_picker_day">"Дзень"</string>
+    <string msgid="1824308273028674826" name="wear_m3c_date_picker_heading">"Каб задаць дату, прагартайце элемент кіравання"</string>
+    <string msgid="5962969526377479136" name="wear_m3c_date_picker_month">"Месяц"</string>
+    <string msgid="4697690064312147449" name="wear_m3c_date_picker_year">"Год"</string>
+    <string msgid="3200727397161392122" name="wear_m3c_open_on_phone">"Гл. тэлефон"</string>
+    <string msgid="5953380527505012363" name="wear_m3c_open_on_phone_icon_content_description">"Значок \"Працягніце на тэлефоне\""</string>
+    <string msgid="167976024035966099" name="wear_m3c_picker_click_to_adjust_hint">"Адкарэкціраваць значэнне"</string>
+    <string msgid="7994498880084699884" name="wear_m3c_picker_click_to_select_hint">"Выбраць значэнне"</string>
+    <string msgid="8440144719909288057" name="wear_m3c_picker_confirm_button_content_description">"Пацвердзіць"</string>
+    <string msgid="3346011303652897029" name="wear_m3c_picker_next_button_content_description">"Далей"</string>
+    <string msgid="8242572466064289486" name="wear_m3c_slider_decrease_content_description">"Паменшыць"</string>
+    <string msgid="3329631766954416834" name="wear_m3c_slider_increase_content_description">"Павялічыць"</string>
+    <string msgid="1741225633698384262" name="wear_m3c_time_picker_heading">"Каб задаць час, прагартайце элемент кіравання"</string>
+    <string msgid="5670838450714030035" name="wear_m3c_time_picker_hour">"Гадзіны"</string>
+    <string msgid="2847700380677127030" name="wear_m3c_time_picker_minute">"Хвіліны"</string>
+    <string msgid="5567285614451063120" name="wear_m3c_time_picker_period">"Перыяд"</string>
+    <string msgid="5551916170669814925" name="wear_m3c_time_picker_second">"Секунды"</string>
+</resources>

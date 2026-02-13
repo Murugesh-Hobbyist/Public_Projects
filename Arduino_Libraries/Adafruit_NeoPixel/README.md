@@ -56,6 +56,7 @@ Compatibility notes: Port A is not supported on any AVR processors at this time
   - Adafruit STM32 Feather @ 120 MHz
   - ESP8266 any speed
   - ESP32 any speed
+  - WCH CH32 @ 48 MHz and higher speeds
   - Nordic nRF52 (Adafruit Feather nRF52), nRF51 (micro:bit)
   - Infineon XMC1100 BootKit @ 32 MHz
   - Infineon XMC1100 2Go @ 32 MHz

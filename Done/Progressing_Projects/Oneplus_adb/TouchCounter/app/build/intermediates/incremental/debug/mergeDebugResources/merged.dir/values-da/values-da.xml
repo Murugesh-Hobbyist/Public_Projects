@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:ns1="urn:oasis:names:tc:xliff:document:1.2">
+    <plurals formatted="false" msgid="7688673698789346225" name="wear_m3c_time_picker_hours_content_description">
+      <item quantity="one">%d time</item>
+      <item quantity="other">%d timer</item>
+    </plurals>
+    <plurals formatted="false" msgid="8268405448590438607" name="wear_m3c_time_picker_minutes_content_description">
+      <item quantity="one">%d minut</item>
+      <item quantity="other">%d minutter</item>
+    </plurals>
+    <plurals formatted="false" msgid="1073969431850983434" name="wear_m3c_time_picker_seconds_content_description">
+      <item quantity="one">%d sekund</item>
+      <item quantity="other">%d sekunder</item>
+    </plurals>
+    <string msgid="389117264260014992" name="autofill">"Autofyld"</string>
+    <string msgid="881409763997275156" name="call_notification_answer_action">"Besvar"</string>
+    <string msgid="8793775615905189152" name="call_notification_answer_video_action">"Video"</string>
+    <string msgid="3229508546291798546" name="call_notification_decline_action">"Afvis"</string>
+    <string msgid="2659457946726154263" name="call_notification_hang_up_action">"Læg på"</string>
+    <string msgid="6107532579223922871" name="call_notification_incoming_text">"Indgående opkald"</string>
+    <string msgid="8623827134497363134" name="call_notification_ongoing_text">"Igangværende opkald"</string>
+    <string msgid="59049573811482460" name="call_notification_screening_text">"Et indgående opkald screenes"</string>
+    <string msgid="406453423630273620" name="close_drawer">"Luk navigationsmenuen"</string>
+    <string msgid="7573152094250666567" name="close_sheet">"Luk arket"</string>
+    <string msgid="8038256446254964252" name="default_error_message">"Ugyldigt input"</string>
+    <string msgid="6312721426453364202" name="default_popup_window_title">"Pop op-vindue"</string>
+    <string msgid="1890207353314751437" name="dropdown_menu">"Rullemenu"</string>
+    <string msgid="6827826412747255547" name="in_progress">"I gang"</string>
+    <string msgid="7933458017204019916" name="indeterminate">"Delvist markeret"</string>
+    <string msgid="542007171693138492" name="navigation_menu">"Navigationsmenu"</string>
+    <string msgid="6610465462668679431" name="not_selected">"Ikke valgt"</string>
+    <string msgid="5941395253238309765" name="range_end">"Slutinterval"</string>
+    <string msgid="7097486360902471446" name="range_start">"Startinterval"</string>
+    <string msgid="6043586758067023" name="selected">"Valgt"</string>
+    <string msgid="2792228137354697160" name="snackbar_pane_title">"Underretning"</string>
+    <string msgid="4139871816613051306" name="state_empty">"Tom"</string>
+    <string msgid="5834637030682409883" name="state_off">"Fra"</string>
+    <string msgid="1490883874751719580" name="state_on">"Til"</string>
+    <string msgid="6277540029070332960" name="status_bar_notification_info_overflow">"999+"</string>
+    <string msgid="2561197295334830845" name="switch_role">"Kontakt"</string>
+    <string msgid="1672349317127674378" name="tab">"Fane"</string>
+    <string msgid="5946805113151406391" name="template_percent">"<ns1:g id="PERCENTAGE">%1$d</ns1:g> procent."</string>
+    <string msgid="3765533235322692011" name="tooltip_description">"værktøjstip"</string>
+    <string msgid="3124740595719787496" name="tooltip_label">"se værktøjstip"</string>
+    <string msgid="7776845597891182382" name="wear_m3c_alert_dialog_content_description_confirm_button">"Bekræft"</string>
+    <string msgid="3572467833850785688" name="wear_m3c_alert_dialog_content_description_dismiss_button">"Luk"</string>
+    <string msgid="8932770593644830235" name="wear_m3c_date_picker_day">"Dag"</string>
+    <string msgid="1824308273028674826" name="wear_m3c_date_picker_heading">"Rul for at angive datoen"</string>
+    <string msgid="5962969526377479136" name="wear_m3c_date_picker_month">"Måned"</string>
+    <string msgid="4697690064312147449" name="wear_m3c_date_picker_year">"År"</string>
+    <string msgid="3200727397161392122" name="wear_m3c_open_on_phone">"Tjek telefon"</string>
+    <string msgid="5953380527505012363" name="wear_m3c_open_on_phone_icon_content_description">"Ikonet Tjek telefon"</string>
+    <string msgid="167976024035966099" name="wear_m3c_picker_click_to_adjust_hint">"Juster værdien"</string>
+    <string msgid="7994498880084699884" name="wear_m3c_picker_click_to_select_hint">"Vælg værdien"</string>
+    <string msgid="8440144719909288057" name="wear_m3c_picker_confirm_button_content_description">"Bekræft"</string>
+    <string msgid="3346011303652897029" name="wear_m3c_picker_next_button_content_description">"Næste"</string>
+    <string msgid="8242572466064289486" name="wear_m3c_slider_decrease_content_description">"Dæmp"</string>
+    <string msgid="3329631766954416834" name="wear_m3c_slider_increase_content_description">"Øg"</string>
+    <string msgid="1741225633698384262" name="wear_m3c_time_picker_heading">"Rul for at angive tidspunktet"</string>
+    <string msgid="5670838450714030035" name="wear_m3c_time_picker_hour">"Time"</string>
+    <string msgid="2847700380677127030" name="wear_m3c_time_picker_minute">"Minut"</string>
+    <string msgid="5567285614451063120" name="wear_m3c_time_picker_period">"Format"</string>
+    <string msgid="5551916170669814925" name="wear_m3c_time_picker_second">"Sekund"</string>
+</resources>

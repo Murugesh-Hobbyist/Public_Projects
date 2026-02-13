@@ -1,0 +1,191 @@
+
+
+
+https://developer.android.com/tools/releases/platform-tools
+download windows version extract in c drive
+open terminal from C:\platform-tools>
+
+New pairing:
+
+C:\Windows\System32>cd C:\platform-tools
+
+C:\platform-tools>adb devices
+List of devices attached
+192.168.0.105:37195     device
+adb-H631105000002E1V000421-wGpAQr._adb-tls-connect._tcp device
+
+C:\platform-tools>adb pair 192.168.0.105:33473
+Enter pairing code: 824577
+Successfully paired to 192.168.0.105:33473 [guid=adb-H631105000002E1V000421-wGpAQr]
+
+C:\platform-tools>adb connect 192.168.0.105:37195
+connected to 192.168.0.105:37195
+
+//C:\platform-tools>adb shell pm uninstall --user 0 com.heytap.wearable.weather
+Success
+
+
+
+
+
+Installs:
+adb shell cmd package install-existing com.google.android.apps.walletnfcrel
+adb shell cmd package install-existing com.heytap.wearable.relax
+adb shell cmd package install-existing com.heytap.wearable.stress
+adb shell cmd package install-existing com.heytap.wearable.weather
+adb shell cmd package install-existing com.heytap.wearable.sleep
+adb shell cmd package install-existing com.heytap.wearable.altitude
+adb shell cmd package install-existing com.heytap.wearable.oxygen
+adb shell cmd package install-existing com.heytap.wearable.daily
+adb shell cmd package install-existing com.heytap.wearable.sports
+adb shell cmd package install-existing com.oplus.wearable.media.sessions
+adb shell cmd package install-existing com.heytap.wearable.flashlight
+adb shell cmd package install-existing com.google.android.calendar
+adb shell cmd package install-existing com.android.providers.calendar
+adb shell cmd package install-existing com.google.android.apps.youtube.music
+adb shell cmd package install-existing com.google.android.wearable.assistant
+
+
+
+Uninstalls:
+adb shell pm uninstall --user 0 com.google.android.apps.walletnfcrel
+adb shell pm uninstall --user 0 com.heytap.wearable.relax
+adb shell pm uninstall --user 0 com.heytap.wearable.stress
+adb shell pm uninstall --user 0 com.heytap.wearable.weather
+adb shell pm uninstall --user 0 com.heytap.wearable.sleep
+adb shell pm uninstall --user 0 com.heytap.wearable.altitude
+adb shell pm uninstall --user 0 com.heytap.wearable.oxygen
+adb shell pm uninstall --user 0 com.heytap.wearable.daily
+adb shell pm uninstall --user 0 com.heytap.wearable.sports
+adb shell pm uninstall --user 0 com.oplus.wearable.media.sessions
+adb shell pm uninstall --user 0 com.heytap.wearable.flashlight
+adb shell pm uninstall --user 0 com.google.android.calendar
+adb shell pm uninstall --user 0 com.android.providers.calendar
+adb shell pm uninstall --user 0 com.google.android.apps.youtube.music
+adb shell pm uninstall --user 0 com.google.android.wearable.assistant
+
+
+adb shell pm uninstall --user 0 com.heytap.wearable.heartrate
+adb shell pm uninstall --user 0 com.heytap.wearable.compass
+
+
+
+
+
+
+
+.\adb pair 192.168.0.105:42345   
+.\adb connect 192.168.0.105:37195      
+
+
+
+
+Open your authenticator app, choose Show QR code on this page, then use the app to scan the code. Alternatively, you can type a secret key.
+ILOC4CBZNZAM4TKIWLAZQBWLBKIULE2S7FXGU3OJ3PBIK3BBAUE7ONBBS7IN4PPA
+
+
+
+App development:
+
+JAVA installation
+winget install EclipseAdoptium.Temurin.17.JDK
+Install Android SDK Platform-Tools (ADB)
+winget install Google.PlatformTools
+mkdir C:\Android\Sdk -Force
+mkdir C:\Android\cmdline-tools\latest -Force
+
+------------------------------------------------------------------------------------------------------
+$zip="C:\Android\cmdline-tools\cmdline-tools.zip"
+Invoke-WebRequest -Uri "https://dl.google.com/android/repository/commandlinetools-win-11076708_latest.zip" -OutFile $zip
+Expand-Archive -Path $zip -DestinationPath "C:\Android\cmdline-tools\latest" -Force
+
+if (Test-Path "C:\Android\cmdline-tools\latest\cmdline-tools\bin") {
+  Move-Item "C:\Android\cmdline-tools\latest\cmdline-tools\*" "C:\Android\cmdline-tools\latest\" -Force
+  Remove-Item "C:\Android\cmdline-tools\latest\cmdline-tools" -Recurse -Force
+}
+
+Test-Path "C:\Android\cmdline-tools\latest\bin\sdkmanager.bat"
+------------------------------------------------------------------------------------------------------
+
+
+run on admin powershell below
+------------------------------------------------------------------------------------------------------
+[Environment]::SetEnvironmentVariable("ANDROID_SDK_ROOT","C:\Android\Sdk","Machine")
+
+$old=[Environment]::GetEnvironmentVariable("Path","Machine")
+$need=@("C:\Android\Sdk\platform-tools","C:\Android\cmdline-tools\latest\bin")
+foreach($p in $need){
+  if($old -notlike "*$p*"){ $old = $old + ";" + $p }
+}
+[Environment]::SetEnvironmentVariable("Path",$old,"Machine")
+------------------------------------------------------------------------------------------------------
+
+in powershell-------------------------------
+sdkmanager.bat --version
+sdkmanager.bat --licenses
+sdkmanager.bat "platform-tools" "platforms;android-34" "build-tools;34.0.0"
+
+sdkmanager.bat --list_installed | Select-String "platforms;android-34"
+sdkmanager.bat --list_installed | Select-String "build-tools;34.0.0"
+sdkmanager.bat --list_installed | Select-String "platform-tools"
+
+
+cd "H:\Public_Projects\Done\Progressing_Projects\Oneplus_adb\TouchCounter"
+dir
+
+mkdir app -Force | Out-Null
+mkdir app\src\main\java\com\twinbot\touchcounter -Force | Out-Null
+mkdir app\src\main -Force | Out-Null
+winget install Gradle.Gradle
+
+
+
+------------------------------------------------------------------------------------------------------
+cd "H:\Public_Projects\Done\Progressing_Projects\Oneplus_adb\TouchCounter"
+
+$gradleVer = "8.7"
+$zip = "$env:TEMP\gradle-$gradleVer-bin.zip"
+$dst = "$env:TEMP\gradle-$gradleVer"
+
+Invoke-WebRequest -Uri "https://services.gradle.org/distributions/gradle-$gradleVer-bin.zip" -OutFile $zip
+Expand-Archive -Path $zip -DestinationPath "$env:TEMP" -Force
+
+$gradleBat = Join-Path "$env:TEMP\gradle-$gradleVer\gradle-$gradleVer\bin\gradle.bat"
+& $gradleBat wrapper --gradle-version $gradleVer
+------------------------------------------------------------------------------------------------------
+$gradleVer = "8.7"
+
+------------------------------------------------------------------------------------------------------
+$zip = "$env:TEMP\gradle-$gradleVer-bin.zip"
+Invoke-WebRequest -Uri "https://services.gradle.org/distributions/gradle-$gradleVer-bin.zip" -OutFile $zip
+Expand-Archive -Path $zip -DestinationPath $env:TEMP -Force
+$gradleBat = "$env:TEMP\gradle-$gradleVer\bin\gradle.bat"
+Test-Path $gradleBat
+------------------------------------------------------------------------------------------------------
+& $gradleBat wrapper --gradle-version $gradleVer
+
+
+------------------------------------------------------------------------------------------------------
+cd "H:\Public_Projects\Done\Progressing_Projects\Oneplus_adb\TouchCounter"
+
+$gradleVer="8.7"
+$zip="$env:TEMP\gradle-$gradleVer-bin.zip"
+
+Invoke-WebRequest https://services.gradle.org/distributions/gradle-$gradleVer-bin.zip -OutFile $zip
+Expand-Archive $zip $env:TEMP -Force
+
+$gradleBat="$env:TEMP\gradle-$gradleVer\bin\gradle.bat"
+& $gradleBat wrapper --gradle-version $gradleVer
+------------------------------------------------------------------------------------------------------
+
+
+
+
+
+
+
+C:\Android\platform-tools\adb.exe pair 192.168.0.116:34399 185386
+C:\Android\platform-tools\adb.exe connect 192.168.0.116:46771
+C:\Android\platform-tools\adb.exe devices
+
+

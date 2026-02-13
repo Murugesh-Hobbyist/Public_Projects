@@ -1,0 +1,67 @@
+###############################################
+# Syntax Coloring Map For FourBitLedDigitalTube
+###############################################
+
+###############################################
+# Datatypes (KEYWORD1)
+###############################################
+
+TM74HC595LedTube	KEYWORD1
+ClickCounter    KEYWORD1
+
+###############################################
+# Methods and Functions (KEYWORD2)
+###############################################
+#TM74HC595LedTube class
+#######################
+begin       KEYWORD2
+blink       KEYWORD2
+clear	    KEYWORD2
+doubleGauge KEYWORD2
+end   KEYWORD2
+fastRefresh  KEYWORD2
+fastSend    KEYWORD2
+gauge       KEYWORD2
+getDigitsQty   KEYWORD2
+getDspValMax   KEYWORD2
+getDspValMin   KEYWORD2
+getInstanceNbr  KEYWORD2
+getMaxBlinkRate KEYWORD2
+getMinBlinkRate KEYWORD2
+isBlank  KEYWORD2
+isBlinking  KEYWORD2
+isWaiting   KEYWORD2
+noBlink     KEYWORD2
+noWait  KEYWORD2
+print	    KEYWORD2
+refresh     KEYWORD2
+resetBlinkMask KEYWORD2
+send	    KEYWORD2
+setBlinkMask   KEYWORD2
+setBlinkRate    KEYWORD2
+setDigitsOrder KEYWORD2
+setWaitChar KEYWORD2
+setWaitRate KEYWORD2
+stop        KEYWORD2
+wait    KEYWORD2
+write   KEYWORD2
+###################
+#ClickCounter class
+###################
+countBegin  KEYWORD2
+countDown   KEYWORD2
+countReset    KEYWORD2
+countRestart    KEYWORD2
+countStop   KEYWORD2
+countToZero KEYWORD2
+countUp KEYWORD2
+getCount    KEYWORD2
+getStartVal KEYWORD2
+updDisplay  KEYWORD2
+
+###############################################
+# Constants (LITERAL1)
+###############################################
+_minBlinkRate  LITERAL1
+_maxBlinkRate  LITERAL1
+

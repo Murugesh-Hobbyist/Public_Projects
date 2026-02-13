@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:ns1="urn:oasis:names:tc:xliff:document:1.2">
+    <plurals formatted="false" msgid="7688673698789346225" name="wear_m3c_time_picker_hours_content_description">
+      <item quantity="one">%d ঘণ্টা</item>
+      <item quantity="other">%d ঘণ্টা</item>
+    </plurals>
+    <plurals formatted="false" msgid="8268405448590438607" name="wear_m3c_time_picker_minutes_content_description">
+      <item quantity="one">%d মিনিট</item>
+      <item quantity="other">%d মিনিট</item>
+    </plurals>
+    <plurals formatted="false" msgid="1073969431850983434" name="wear_m3c_time_picker_seconds_content_description">
+      <item quantity="one">%d ছেকেণ্ড</item>
+      <item quantity="other">%d ছেকেণ্ড</item>
+    </plurals>
+    <string msgid="389117264260014992" name="autofill">"স্বয়ংক্রিয়ভাৱে পূৰ হোৱাৰ সুবিধা"</string>
+    <string msgid="881409763997275156" name="call_notification_answer_action">"উত্তৰ দিয়ক"</string>
+    <string msgid="8793775615905189152" name="call_notification_answer_video_action">"ভিডিঅ’"</string>
+    <string msgid="3229508546291798546" name="call_notification_decline_action">"প্ৰত্যাখ্যান কৰক"</string>
+    <string msgid="2659457946726154263" name="call_notification_hang_up_action">"কল কাটি দিয়ক"</string>
+    <string msgid="6107532579223922871" name="call_notification_incoming_text">"অন্তৰ্গামী কল"</string>
+    <string msgid="8623827134497363134" name="call_notification_ongoing_text">"চলি থকা কল"</string>
+    <string msgid="59049573811482460" name="call_notification_screening_text">"এটা অন্তৰ্গামী কলৰ পৰীক্ষা কৰি থকা হৈছে"</string>
+    <string msgid="406453423630273620" name="close_drawer">"নেভিগেশ্বন মেনু বন্ধ কৰক"</string>
+    <string msgid="7573152094250666567" name="close_sheet">"শ্বীট বন্ধ কৰক"</string>
+    <string msgid="8038256446254964252" name="default_error_message">"অমান্য ইনপুট"</string>
+    <string msgid="6312721426453364202" name="default_popup_window_title">"পপ-আপ ৱিণ্ড’"</string>
+    <string msgid="1890207353314751437" name="dropdown_menu">"ড্ৰপডাউনৰ মেনু"</string>
+    <string msgid="6827826412747255547" name="in_progress">"প্ৰক্ৰিয়াকৰণ কৰি থকা হৈছে"</string>
+    <string msgid="7933458017204019916" name="indeterminate">"আংশিকভাৱে পৰীক্ষা কৰা হৈছে"</string>
+    <string msgid="542007171693138492" name="navigation_menu">"নেভিগেশ্বন মেনু"</string>
+    <string msgid="6610465462668679431" name="not_selected">"বাছনি কৰা হোৱা নাই"</string>
+    <string msgid="5941395253238309765" name="range_end">"পৰিসৰৰ সমাপ্তি"</string>
+    <string msgid="7097486360902471446" name="range_start">"পৰিসৰৰ আৰম্ভণি"</string>
+    <string msgid="6043586758067023" name="selected">"বাছনি কৰা হৈছে"</string>
+    <string msgid="2792228137354697160" name="snackbar_pane_title">"সতৰ্কবাৰ্তা"</string>
+    <string msgid="4139871816613051306" name="state_empty">"খালী"</string>
+    <string msgid="5834637030682409883" name="state_off">"অফ আছে"</string>
+    <string msgid="1490883874751719580" name="state_on">"অন আছে"</string>
+    <string msgid="6277540029070332960" name="status_bar_notification_info_overflow">"৯৯৯+"</string>
+    <string msgid="2561197295334830845" name="switch_role">"ছুইচ"</string>
+    <string msgid="1672349317127674378" name="tab">"টেব"</string>
+    <string msgid="5946805113151406391" name="template_percent">"<ns1:g id="PERCENTAGE">%1$d</ns1:g> শতাংশ।"</string>
+    <string msgid="3765533235322692011" name="tooltip_description">"টুলটিপ"</string>
+    <string msgid="3124740595719787496" name="tooltip_label">"টুলটিপ দেখুৱাওক"</string>
+    <string msgid="7776845597891182382" name="wear_m3c_alert_dialog_content_description_confirm_button">"নিশ্চিত কৰক"</string>
+    <string msgid="3572467833850785688" name="wear_m3c_alert_dialog_content_description_dismiss_button">"অগ্ৰাহ্য কৰক"</string>
+    <string msgid="8932770593644830235" name="wear_m3c_date_picker_day">"দিন"</string>
+    <string msgid="1824308273028674826" name="wear_m3c_date_picker_heading">"তাৰিখ ছেট কৰিবলৈ স্ক্ৰ’ল কৰক"</string>
+    <string msgid="5962969526377479136" name="wear_m3c_date_picker_month">"মাহ"</string>
+    <string msgid="4697690064312147449" name="wear_m3c_date_picker_year">"বছৰ"</string>
+    <string msgid="3200727397161392122" name="wear_m3c_open_on_phone">"নিজৰ ফ’ন চাওক"</string>
+    <string msgid="5953380527505012363" name="wear_m3c_open_on_phone_icon_content_description">"ফ’নৰ চিহ্নটো চাওক"</string>
+    <string msgid="167976024035966099" name="wear_m3c_picker_click_to_adjust_hint">"মানটো সামঞ্জস্য কৰক"</string>
+    <string msgid="7994498880084699884" name="wear_m3c_picker_click_to_select_hint">"মানটো বাছনি কৰক"</string>
+    <string msgid="8440144719909288057" name="wear_m3c_picker_confirm_button_content_description">"নিশ্চিত কৰক"</string>
+    <string msgid="3346011303652897029" name="wear_m3c_picker_next_button_content_description">"পৰৱৰ্তী"</string>
+    <string msgid="8242572466064289486" name="wear_m3c_slider_decrease_content_description">"কমাওক"</string>
+    <string msgid="3329631766954416834" name="wear_m3c_slider_increase_content_description">"বঢ়াওক"</string>
+    <string msgid="1741225633698384262" name="wear_m3c_time_picker_heading">"সময় ছেট কৰিবলৈ স্ক্ৰ’ল কৰক"</string>
+    <string msgid="5670838450714030035" name="wear_m3c_time_picker_hour">"ঘণ্টা"</string>
+    <string msgid="2847700380677127030" name="wear_m3c_time_picker_minute">"মিনিট"</string>
+    <string msgid="5567285614451063120" name="wear_m3c_time_picker_period">"পিৰিয়ড"</string>
+    <string msgid="5551916170669814925" name="wear_m3c_time_picker_second">"দ্বিতীয়"</string>
+</resources>
